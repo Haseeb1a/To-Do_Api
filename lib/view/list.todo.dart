@@ -44,45 +44,58 @@ class _TodoListState extends State<TodoList> {
         ),
         replacement: RefreshIndicator(
           onRefresh: fetchData,
-          child: ListView.builder(
-              itemCount: items.length,
-              itemBuilder: (context, index) {
-                final item = items[index];
-                final id = item['_id'] as String;
-                return ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: Colors.black,
-                    child: Text("${index + 1}"),
-                  ),
-                  title: Text(item['title']),
-                  subtitle: Text(
-                    item['description'],
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  trailing: PopupMenuButton(onSelected: (value) {
-                    if (value == 'edit') {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => EditTodo( decription: item['description'],title:item['title'] ,id: item['_id'], ),
-                          ));
-                    } else if (value == 'delete') {
-                      deleteByid(id);
-                    }
-                  }, itemBuilder: (context) {
-                    return [
-                      PopupMenuItem(
-                        child: Text("Edit"),
-                        value: 'edit',
+          child: Visibility(
+            visible: items.isNotEmpty,
+            replacement: Center(
+              child: Text('No Todo Item',style: TextStyle(fontSize: 21,fontWeight: FontWeight.bold),),
+              
+            ),
+
+            child: ListView.builder(
+                itemCount: items.length,
+                padding: EdgeInsets.all(8),
+                itemBuilder: (context, index) {
+                  
+                  final item = items[index];
+                  final id = item['_id'] as String;
+                  return Card (
+                    
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: Colors.black,
+                        child: Text("${index + 1}"),
                       ),
-                      PopupMenuItem(
-                        child: Text('Delete'),
-                        value: 'delete',
-                      )
-                    ];
-                  }),
-                );
-              }),
+                      title: Text(item['title']),
+                      subtitle: Text(
+                        item['description'],
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      trailing: PopupMenuButton(onSelected: (value) {
+                        if (value == 'edit') {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => EditTodo( decription: item['description'],title:item['title'] ,id: item['_id'], ),
+                              ));
+                        } else if (value == 'delete') {
+                          deleteByid(id);
+                        }
+                      }, itemBuilder: (context) {
+                        return [
+                          PopupMenuItem(
+                            child: Text("Edit"),
+                            value: 'edit',
+                          ),
+                          PopupMenuItem(
+                            child: Text('Delete'),
+                            value: 'delete',
+                          )
+                        ];
+                      }),
+                    ),
+                  );
+                }),
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
