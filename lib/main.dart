@@ -1,33 +1,36 @@
+// main.dart
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todoapp/controller/addcontroller.dart';
+import 'package:todoapp/services/apiconnections.dart';
+import 'package:todoapp/view/add_todo.dart';
 import 'package:todoapp/view/list.todo.dart';
+import 'package:todoapp/view/editpage.dart';
+
+import 'controller copy/homepagecontroller.dart';
+import 'controller copy/updatetudo.dart';
+import 'model/tudomodel.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context)=>Addcontoller())
+        ChangeNotifierProvider(create: (context)=>AddTodo()),
+        ChangeNotifierProvider(create: (context)=>Updatetudo())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
+        home: Scaffold(
+          body: ItemListWidget(),
         ),
-        home: TodoList(),
       ),
     );
   }
 }
-// -----------------------------279-15.57
 
 

@@ -1,51 +1,88 @@
-import 'dart:convert';
 
+import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:todoapp/model/tudomodel.dart';
 
-class Connections {
-  List<Item> items = [];
+class ApiService {
+  static Future<Tudomodel> fetchDataFromAPI() async {
+    final url = 'https://api.nstack.in/v1/todos?page=1&limit=10'; // Replace with the actual API endpoint
+    final response = await http.get(Uri.parse(url));
 
-final url = 'https://api.nstack.in/v1/todos?page=1&limit=10';
-  //   final uri = Uri.parse(url);
-     Future<List<Map<String, dynamic>>?> getIsro() async {
-    try {
-      final response = await http.get(Uri.parse(url));
-      if (response.statusCode == 200) {
-        final List<Map<String, dynamic>> spaceList =
-            List<Map<String, dynamic>>.from(json.decode(response.body));
-        return spaceList;
-      } else {
-        print("Failed to fetch space data. Status code: ${response.statusCode}");
-        return null; // Return null or handle the error appropriately
-      }
-    } catch (error) {
-      print("An error occurred: $error");
-      rethrow;
+    if (response.statusCode == 200) {
+      return tudomodelFromJson(response.body);
+    } else {
+      throw Exception('Failed to load data');
     }
   }
-  // Future<List<Item>> fetchData() async {
-  //   final url = 'https://api.nstack.in/v1/todos?page=1&limit=10';
-  //   final uri = Uri.parse(url);
-  //   final responce = await http.get(uri);
-  //   print(responce.statusCode);
-  //   print(responce.body);
-  //   if (responce.statusCode == 200) {
-  //     var body = jsonDecode(responce.body);
-  //     items=
+  Future<void> submitdata(String title, String description) async {
+    final body = {
+      "title": title,
+      "description": description,
+      "is_completed": false,
+    };
+    final  url = 'https://api.nstack.in/v1/todos';
+    final uri = Uri.parse(url);
+    final responce = await http.post(
+      uri,
+      body: jsonEncode(body),
+      headers: {'Content-Type': 'application/json'},
+    );
+    print(responce.statusCode);
+    print(responce.body);
+    if (responce.statusCode == 201) {
+         print("ss");
+      // showSuccessMessage();
 
-  //     return Item.fromJson(body);
-
-  //     // final result = json['items'] as List;
-  //     // // setState(() {
-  //     // items = result;
-
-  //     // });
-  //   } else {
-  //     throw Exception("error");
-  //   }
-    // setState(() {
-    // isLoading = false;
-    // });
+      // showSuccessMessage
+      print("Creation sucuss");
+    } else {
+      print("Creaation Error");
+      // showErrorMessage();
+      print(responce.body);
+    }
   }
+  Future<void> deleteItem(String itemId) async {
+  final url = Uri.parse('https://api.nstack.in/v1/todos/$itemId'); // Replace with your actual API endpoint and item ID
 
+  final response = await http.delete(
+    url,
+    headers: {
+      'Content-Type': 'application/json', // Specify the content type if needed
+    },
+  );
+
+  if (response.statusCode == 200) {
+    // Item successfully deleted (status code 200 - OK)
+    print('Item deleted successfully');
+  } else {
+    // Handle the error if the request fails
+    print('Error deleting item: ${response.statusCode} - ${response.body}');
+  }
+}
+
+
+Future<void> updateItem(String itemId, String title, String description) async {
+  final url = Uri.parse('https://api.nstack.in/v1/todos/$itemId'); // Replace with your actual API endpoint and item ID
+
+  final Map<String, String> data = {
+    "title": title,
+    "description": description,
+  };
+
+  final response = await http.put(
+    url,
+    body: jsonEncode(data),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  );
+
+  if (response.statusCode == 200) {
+    // Item successfully updated (status code 200 - OK)
+    print('Item updated successfully');
+  } else {
+    // Handle the error if the request fails
+    print('Error updating item: ${response.statusCode} - ${response.body}');
+  }
+}
+}
