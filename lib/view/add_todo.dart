@@ -40,7 +40,9 @@ class AddItemPage extends StatelessWidget {
             Center(
               child: MaterialButton(
                   color: Colors.black,
-                  onPressed: tudodata.addItem,
+                  onPressed: (){
+                    tudodata.addItem(context);
+                  },
                   child: Text("Add Task",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,

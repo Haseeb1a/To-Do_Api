@@ -19,5 +19,6 @@ class Homedata extends ChangeNotifier {
 
   Homedata() {
     startup();
+    notifyListeners();
   }
 }

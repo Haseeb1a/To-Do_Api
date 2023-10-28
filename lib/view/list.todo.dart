@@ -27,7 +27,7 @@ class ItemListWidget extends StatelessWidget {
           onRefresh: homedatas.refreshData,
           child: FutureBuilder<Tudomodel>(
             future:  homedatas.data,
-            builder: (context, snapshot) {
+            builder: (contextl, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
@@ -61,7 +61,7 @@ class ItemListWidget extends StatelessWidget {
                                   ),
                                 );
                               } else if (value == 'delete') {
-                                ApiService().deleteItem(item.id);
+                                ApiService().deleteItem(context,item.id);
                                 homedatas.refreshData(); // Refresh the list after deletion
                               }
                             },
