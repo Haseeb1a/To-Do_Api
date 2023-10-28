@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todoapp/controller%20copy/updatetudo.dart';
+import 'package:todoapp/controller/updatetudo.dart';
 
-import '../controller copy/homepagecontroller.dart';
+import '../controller/addcontroller.dart';
 import '../services/apiconnections.dart';
 
 class UpdateItemPage extends StatefulWidget {
