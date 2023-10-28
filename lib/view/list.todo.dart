@@ -48,8 +48,8 @@ class ItemListWidget extends StatelessWidget {
                             backgroundColor: Colors.black,
                             child: Text("${index + 1}"),
                           ),
-                          title: Text(item.title),
-                          subtitle: Text(item.description),
+                          title: Text(item.title,style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),),
+                          subtitle: Text(item.description,style: TextStyle(fontWeight: FontWeight.bold),),
                           trailing: PopupMenuButton(
                             onSelected: (value) {
                               if (value == 'edit') {

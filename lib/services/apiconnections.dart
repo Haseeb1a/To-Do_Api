@@ -99,7 +99,7 @@ class ApiService {
     } else {
       // Handle the error if the request fails
       print('Error updating item: ${response.statusCode} - ${response.body}');
-     
+      showError(context, "Error updating item");
     }
   }
 }
