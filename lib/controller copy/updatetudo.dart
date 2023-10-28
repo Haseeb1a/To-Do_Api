@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import '../services/apiconnections.dart';
 
 class Updatetudo extends ChangeNotifier {
-    final TextEditingController titleController = TextEditingController();
+  final TextEditingController titleController = TextEditingController();
 
   final TextEditingController descriptionController = TextEditingController();
 
-
-     updateItem(String itemIds) async {
+  void updateItem(String itemIds) async {
     final String itemId = itemIds;
     final String title = titleController.text;
     final String description = descriptionController.text;
@@ -18,7 +17,8 @@ class Updatetudo extends ChangeNotifier {
       await ApiService().updateItem(itemId, title, description);
       // Handle success and error cases, e.g., show a confirmation dialog.
     } else {
+      return;
       // Handle validation errors or show a message to the user.
     }
-  } 
+  }
 }

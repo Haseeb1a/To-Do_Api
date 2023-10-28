@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todoapp/controller%20copy/updatetudo.dart';
 
+import '../controller copy/homepagecontroller.dart';
 import '../services/apiconnections.dart';
 
 class UpdateItemPage extends StatefulWidget {
@@ -11,25 +14,26 @@ class UpdateItemPage extends StatefulWidget {
 }
 
 class _UpdateItemPageState extends State<UpdateItemPage> {
-  final TextEditingController titleController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
+  // final TextEditingController titleController = TextEditingController();
+  // final TextEditingController descriptionController = TextEditingController();
 
-  void _updateItem() async {
-    final String itemId = widget.itemId;
-    final String title = titleController.text;
-    final String description = descriptionController.text;
+  // void _updateItem() async {
+  //   final String itemId = widget.itemId;
+  //   final String title = titleController.text;
+  //   final String description = descriptionController.text;
 
-    if (itemId.isNotEmpty && title.isNotEmpty && description.isNotEmpty) {
-      // Call the updateItem method to update the item on the server
-      await ApiService().updateItem(itemId, title, description);
-      // Handle success and error cases, e.g., show a confirmation dialog.
-    } else {
-      // Handle validation errors or show a message to the user.
-    }
-  }
+  //   if (itemId.isNotEmpty && title.isNotEmpty && description.isNotEmpty) {
+  //     // Call the updateItem method to update the item on the server
+  //     await ApiService().updateItem(itemId, title, description);
+  //     // Handle success and error cases, e.g., show a confirmation dialog.
+  //   } else {
+  //     // Handle validation errors or show a message to the user.
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
+        final tudodata = Provider.of<Updatetudo>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -46,13 +50,13 @@ class _UpdateItemPageState extends State<UpdateItemPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             TextField(
-              controller: titleController,
+              controller: tudodata.titleController,
               decoration: InputDecoration(
                 labelText: 'Title',
               ),
             ),
             TextField(
-              controller: descriptionController,
+              controller: tudodata.descriptionController,
               decoration: InputDecoration(
                 labelText: 'Description',
               ),
@@ -63,7 +67,11 @@ class _UpdateItemPageState extends State<UpdateItemPage> {
               color: Colors.black,
               
               
-              onPressed: _updateItem, child: Text("UPDATE", style: TextStyle(
+              onPressed:() {
+                tudodata.updateItem(widget.itemId);
+              },
+              
+               child: Text("UPDATE", style: TextStyle(
                   fontWeight: FontWeight.bold, fontSize: 17, color: Colors.blue))),
         )
           ],
