@@ -57,7 +57,7 @@ class ItemListWidget extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        UpdateItemPage(itemId: item.id),
+                                        UpdateItemPage(itemId: item.id,title: item.title ,description: item.description),
                                   ),
                                 );
                               } else if (value == 'delete') {

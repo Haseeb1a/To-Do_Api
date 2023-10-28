@@ -5,18 +5,37 @@ import 'package:todoapp/controller/updatetudo.dart';
 import '../controller/addcontroller.dart';
 import '../services/apiconnections.dart';
 
-class UpdateItemPage extends StatelessWidget {
-  final String itemId; // Pass the ID of the item to be updated
-  UpdateItemPage({required this.itemId});
+class UpdateItemPage extends StatefulWidget {
+  final String itemId;
+  final String title;
+  final String description; // Pass the ID of the item to be updated
+  UpdateItemPage(
+      {required this.itemId, required this.title, required this.description});
+
+  @override
+  State<UpdateItemPage> createState() => _UpdateItemPageState();
+}
+
+class _UpdateItemPageState extends State<UpdateItemPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final tudodata = Provider.of<Updatetudo>(context,listen: false);
+    tudodata.titleController.text = widget.title;
+    tudodata.descriptionController.text = widget.description;
+  }
+
 
   @override
   Widget build(BuildContext context) {
-        final tudodata = Provider.of<Updatetudo>(context);
+    final tudodata = Provider.of<Updatetudo>(context);
+    tudodata.updateItem;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: const Text(
-          "EIT ITEM",
+          "EDIT ITEM",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
         ),
         centerTitle: true,
@@ -28,6 +47,7 @@ class UpdateItemPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             TextField(
+              
               controller: tudodata.titleController,
               decoration: InputDecoration(
                 labelText: 'Title',
@@ -40,18 +60,19 @@ class UpdateItemPage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-           Center(
-          child: MaterialButton(
-              color: Colors.black,
-              
-              
-              onPressed:() {
-                tudodata.updateItem(context,itemId);
-              },
-              
-               child: Text("UPDATE", style: TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: 17, color: Colors.blue))),
-        )
+            Center(
+              child: MaterialButton(
+                  color: Colors.black,
+                  onPressed: () {
+                    tudodata.updateItem(context, widget.itemId, 
+                      );
+                  },
+                  child: Text("UPDATE",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 17,
+                          color: Colors.blue))),
+            )
           ],
         ),
       ),
