@@ -3,40 +3,50 @@ import 'package:provider/provider.dart';
 import 'package:todoapp/controller/homecontroller.dart';
 import 'package:todoapp/view/add_todo.dart';
 import 'package:todoapp/view/editpage.dart';
-
-import '../controller/homecontroller.dart';
 import '../model/tudomodel.dart';
 import '../services/apiconnections.dart';
 
-class ItemListWidget extends StatelessWidget {
+class ItemListWidget extends StatefulWidget {
+  @override
+  State<ItemListWidget> createState() => _ItemListWidgetState();
+}
+
+class _ItemListWidgetState extends State<ItemListWidget> {
+  @override
+  void initState() {
+    final homedatas = Provider.of<Homedata>(context,listen: false);
+    homedatas.refreshData();
+    // TODO: implement initState
+    super.initState();
+  }
+
   // Future<Tudomodel>? _data;
   @override
   Widget build(BuildContext context) {
     final homedatas = Provider.of<Homedata>(context);
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 35, 35, 36),
+        backgroundColor: const Color.fromARGB(255, 35, 35, 36),
         appBar: AppBar(
           backgroundColor: Colors.black,
-          title: Text(
+          title: const Text(
             "TODO LIST",
             style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
         ),
         body: RefreshIndicator(
-          onRefresh: homedatas.refreshData,
+          onRefresh: homedatas.refreshData
+          ,
           child: FutureBuilder<Tudomodel>(
-            future:  homedatas.data,
+            future: homedatas.data,
             builder: (contextl, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
                 return Center(child: Text('Error: ${snapshot.error}'));
               } else if (snapshot.hasData && snapshot.data != null) {
                 final items = snapshot.data!.items;
-                if (items.isEmpty) {
-                  return Center(child: Text('No data available'));
-                } else {
+           
                   return ListView.builder(
                     itemCount: items.length,
                     itemBuilder: (context, index) {
@@ -48,30 +58,41 @@ class ItemListWidget extends StatelessWidget {
                             backgroundColor: Colors.black,
                             child: Text("${index + 1}"),
                           ),
-                          title: Text(item.title,style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),),
-                          subtitle: Text(item.description,style: TextStyle(fontWeight: FontWeight.bold),),
+                          title: Text(
+                            item.title,
+                            style: const TextStyle(
+                                fontSize: 17, fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: Text(
+                            item.description,
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
                           trailing: PopupMenuButton(
                             onSelected: (value) {
                               if (value == 'edit') {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) =>
-                                        UpdateItemPage(itemId: item.id,title: item.title ,description: item.description),
+                                    builder: (context) => UpdateItemPage(
+                                      itemId: item.id,
+                                      description: item.description,
+                                      title: item.title,
+                                    ),
                                   ),
                                 );
                               } else if (value == 'delete') {
-                                ApiService().deleteItem(context,item.id);
-                                homedatas.refreshData(); // Refresh the list after deletion
+                                ApiService().deleteItem(context, item.id);
+                                homedatas
+                                    .refreshData(); // Refresh the list after deletion
                               }
                             },
                             itemBuilder: (context) {
                               return [
-                                PopupMenuItem(
+                                const PopupMenuItem(
                                   child: Text("Edit"),
                                   value: 'edit',
                                 ),
-                                PopupMenuItem(
+                                const PopupMenuItem(
                                   child: Text('Delete'),
                                   value: 'delete',
                                 )
@@ -82,9 +103,9 @@ class ItemListWidget extends StatelessWidget {
                       );
                     },
                   );
-                }
+                
               } else {
-                return Center(child: Text('No data available'));
+                return const Center(child: Text('No data available'));
               }
             },
           ),
@@ -98,7 +119,7 @@ class ItemListWidget extends StatelessWidget {
                     builder: (context) => AddItemPage(),
                   ));
             },
-            label: Text(
+            label: const Text(
               "ADD TODO",
               style: TextStyle(
                   fontWeight: FontWeight.bold,

@@ -4,9 +4,9 @@ import 'package:todoapp/model/tudomodel.dart';
 import 'package:todoapp/view/widget/snakbar.dart';
 
 class ApiService {
+  // get-----------------------
   static Future<Tudomodel> fetchDataFromAPI() async {
-    final url =
-        'https://api.nstack.in/v1/todos?page=1&limit=10'; // Replace with the actual API endpoint
+    const url = 'https://api.nstack.in/v1/todos?page=1&limit=10';
     final response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
@@ -16,6 +16,7 @@ class ApiService {
     }
   }
 
+// Post-------------------------------------------
   Future<void> submitdata(context, String title, String description) async {
     final body = {
       "title": title,
@@ -33,50 +34,43 @@ class ApiService {
     print(responce.body);
     if (responce.statusCode == 201) {
       print("ss");
-      // showSuccessMessage();
-
-      // showSuccessMessage
       print("Creaation Success");
       showSuccess(context, " Creaation Success");
       fetchDataFromAPI();
-      // Show().showSuccess (," Creaation Success");
     } else {
       print("Creaation Error");
-      // showErrorMessage();
       print(responce.body);
-            showError(context, "Creaation Error");
-      // showerror(" Creaation Success");
+      showError(context, "Creaation Error");
     }
   }
 
+  //delete ---------------------------------------------------
   Future<void> deleteItem(ctx, String itemId) async {
     final url = Uri.parse(
-        'https://api.nstack.in/v1/todos/$itemId'); // Replace with your actual API endpoint and item ID
+        'https://api.nstack.in/v1/todos/$itemId'); 
 
     final response = await http.delete(
       url,
       headers: {
         'Content-Type':
-            'application/json', // Specify the content type if needed
+            'application/json',
       },
     );
 
     if (response.statusCode == 200) {
-      // Item successfully deleted (status code 200 - OK)
       print('Item deleted successfully');
       showError(ctx, 'Item deleted successfully');
       fetchDataFromAPI();
     } else {
-      // Handle the error if the request fails
+     
       print('Error deleting item: ${response.statusCode} - ${response.body}');
-      
     }
   }
 
+//  put-------------------------
   Future<void> updateItem(
       context, String itemId, String title, String description) async {
-    final url = Uri.parse(
-        'https://api.nstack.in/v1/todos/$itemId'); // Replace with your actual API endpoint and item ID
+    final url = Uri.parse('https://api.nstack.in/v1/todos/$itemId');
 
     final Map<String, String> data = {
       "title": title,
@@ -92,12 +86,12 @@ class ApiService {
     );
 
     if (response.statusCode == 200) {
-      // Item successfully updated (status code 200 - OK)
+     
       print('Item updated successfully');
 
       showSuccess(context, 'Item updated successfully');
     } else {
-      // Handle the error if the request fails
+
       print('Error updating item: ${response.statusCode} - ${response.body}');
       showError(context, "Error updating item");
     }

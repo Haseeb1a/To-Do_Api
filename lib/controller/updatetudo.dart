@@ -4,17 +4,13 @@ import '../services/apiconnections.dart';
 
 class Updatetudo extends ChangeNotifier {
   final TextEditingController titleController = TextEditingController();
-
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController descriptionController = TextEditingController();
 
   void updateItem(
-      context, String itemIds, ) async {
-    // Updatetudos() {
-    //   titleController.text = titles;
-    //   descriptionController.text = decription;
-    //   notifyListeners();
-    // }
-
+    context,
+    String itemIds,
+  ) async {
     final String itemId = itemIds;
     final String title = titleController.text;
     final String description = descriptionController.text;
@@ -28,6 +24,4 @@ class Updatetudo extends ChangeNotifier {
       // Handle validation errors or show a message to the user.
     }
   }
-
-
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
-        duration: Duration(seconds: 3),
+        duration: const Duration(seconds: 3),
         backgroundColor: Colors.red, // Change the color as needed
       ),
     );
@@ -12,21 +12,8 @@ import 'package:flutter/material.dart';
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
-        duration: Duration(seconds: 3),
+        duration: const Duration(seconds: 3),
         backgroundColor: Colors.green, // Change the color as needed
       ),
     );
   }
-class Show extends StatelessWidget {
-  const Show({Key? key}) : super(key: key);
-
-
-
-
-
-  @override
-  Widget build(BuildContext context) {
-    // Your widget content here
-    return Container();
-  }
-}
