@@ -27,6 +27,7 @@ class _ItemListWidgetState extends State<ItemListWidget> {
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 35, 35, 36),
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.black,
           title: const Text(
             "TODO LIST",
@@ -81,9 +82,9 @@ class _ItemListWidgetState extends State<ItemListWidget> {
                                   ),
                                 );
                               } else if (value == 'delete') {
-                                ApiService().deleteItem(context, item.id);
-                                homedatas
-                                    .refreshData(); // Refresh the list after deletion
+                               
+                                homedatas.deleteitems(context,item.id); 
+                                // Refresh the list after deletion
                               }
                             },
                             itemBuilder: (context) {

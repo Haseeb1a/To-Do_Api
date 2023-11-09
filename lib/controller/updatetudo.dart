@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todoapp/controller/homecontroller.dart';
 
 import '../services/apiconnections.dart';
 
@@ -18,6 +19,7 @@ class Updatetudo extends ChangeNotifier {
     if (itemId.isNotEmpty && title.isNotEmpty && description.isNotEmpty) {
       // Call the updateItem method to update the item on the server
       await ApiService().updateItem(context, itemId, title, description);
+      Homedata().refreshData();
       // Handle success and error cases, e.g., show a confirmation dialog.
     } else {
       return;

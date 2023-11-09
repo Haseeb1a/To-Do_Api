@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todoapp/controller/homecontroller.dart';
 import 'package:todoapp/controller/updatetudo.dart';
 import 'package:todoapp/view/list.todo.dart';
 
@@ -80,6 +81,12 @@ class _UpdateItemPageState extends State<UpdateItemPage> {
                       context,
                       widget.itemId,
                     );
+                    Homedata().refreshData();
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ItemListWidget(),
+                        ));
                   }
                 },
                 child: const Text(

@@ -19,9 +19,12 @@ class Homedata extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Future<void> startup() async {
-  //   data = ApiService.fetchDataFromAPI();
-  //   await data; // Wait for the data to be fetched
-  //   notifyListeners();
-  // }
+  deleteitems(context, itemid) async {
+    ApiService().deleteItem(context, itemid);
+  
+    refreshData();
+    refreshData();
+      data;
+    notifyListeners();
+  }
 }

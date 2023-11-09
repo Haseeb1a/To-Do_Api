@@ -23,7 +23,7 @@ class ApiService {
       "description": description,
       "is_completed": false,
     };
-    final url = 'https://api.nstack.in/v1/todos';
+    const url = 'https://api.nstack.in/v1/todos';
     final uri = Uri.parse(url);
     final responce = await http.post(
       uri,
@@ -40,7 +40,7 @@ class ApiService {
     } else {
       print("Creaation Error");
       print(responce.body);
-      showError(context, "Creaation Error");
+       showError(context, "Creaation Error");
     }
   }
 
@@ -60,7 +60,7 @@ class ApiService {
     if (response.statusCode == 200) {
       print('Item deleted successfully');
       showError(ctx, 'Item deleted successfully');
-      fetchDataFromAPI();
+      // fetchDataFromAPI();
     } else {
      
       print('Error deleting item: ${response.statusCode} - ${response.body}');

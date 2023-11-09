@@ -65,11 +65,12 @@ class AddItemPage extends StatelessWidget {
                        Homedata().refreshData();
                       tudodata.titleController.clear();
                       tudodata.descriptionController.clear();
-                      Navigator.push(
+                      Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) => ItemListWidget(),
                           ));
+                          
                     }
                   },
                   child: const Text(
