@@ -14,7 +14,7 @@ class ItemListWidget extends StatefulWidget {
 class _ItemListWidgetState extends State<ItemListWidget> {
   @override
   void initState() {
-    final homedatas = Provider.of<Homedata>(context,listen: false);
+    final homedatas = Provider.of<Homedata>(context, listen: false);
     homedatas.refreshData();
     // TODO: implement initState
     super.initState();
@@ -36,8 +36,7 @@ class _ItemListWidgetState extends State<ItemListWidget> {
           centerTitle: true,
         ),
         body: RefreshIndicator(
-          onRefresh: homedatas.refreshData
-          ,
+          onRefresh: homedatas.refreshData,
           child: FutureBuilder<Tudomodel>(
             future: homedatas.data,
             builder: (contextl, snapshot) {
@@ -46,67 +45,68 @@ class _ItemListWidgetState extends State<ItemListWidget> {
               } else if (snapshot.hasError) {
                 return Center(child: Text('Error: ${snapshot.error}'));
               } else if (snapshot.hasData && snapshot.data != null) {
+                print('hdkjghkhs');
                 final items = snapshot.data!.items;
-           
-                  return ListView.builder(
-                    itemCount: items.length,
-                    itemBuilder: (context, index) {
-                      final item = items[index];
-                      return Card(
-                        color: Colors.white,
-                        child: ListTile(
-                          leading: CircleAvatar(
-                            backgroundColor: Colors.black,
-                            child: Text("${index + 1}"),
-                          ),
-                          title: Text(
-                            item.title,
-                            style: const TextStyle(
-                                fontSize: 17, fontWeight: FontWeight.bold),
-                          ),
-                          subtitle: Text(
-                            item.description,
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          trailing: PopupMenuButton(
-                            onSelected: (value) {
-                              if (value == 'edit') {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => UpdateItemPage(
-                                      itemId: item.id,
-                                      description: item.description,
-                                      title: item.title,
-                                    ),
-                                  ),
-                                );
-                              } else if (value == 'delete') {
-                               
-                                homedatas.deleteitems(context,item.id); 
-                                // Refresh the list after deletion
-                              }
-                            },
-                            itemBuilder: (context) {
-                              return [
-                                const PopupMenuItem(
-                                  child: Text("Edit"),
-                                  value: 'edit',
-                                ),
-                                const PopupMenuItem(
-                                  child: Text('Delete'),
-                                  value: 'delete',
-                                )
-                              ];
-                            },
-                          ),
+
+                return ListView.builder(
+                  itemCount: items.length,
+                  itemBuilder: (context, index) {
+                    final item = items[index];
+                    return Card(
+                      color: Colors.white,
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          backgroundColor: Colors.black,
+                          child: Text("${index + 1}"),
                         ),
-                      );
-                    },
-                  );
-                
+                        title: Text(
+                          item.title,
+                          style: const TextStyle(
+                              fontSize: 17, fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: Text(
+                          item.description,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        trailing: PopupMenuButton(
+                          onSelected: (value) {
+                            if (value == 'edit') {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => UpdateItemPage(
+                                    itemId: item.id,
+                                    description: item.description,
+                                    title: item.title,
+                                  ),
+                                ),
+                              );
+                            } else if (value == 'delete') {
+                              homedatas.deleteitems(context, item.id);
+                              // Refresh the list after deletion
+                            }
+                          },
+                          itemBuilder: (context) {
+                            return [
+                              const PopupMenuItem(
+                                child: Text("Edit"),
+                                value: 'edit',
+                              ),
+                              const PopupMenuItem(
+                                child: Text('Delete'),
+                                value: 'delete',
+                              )
+                            ];
+                          },
+                        ),
+                      ),
+                    );
+                  },
+                );
               } else {
-                return const Center(child: Text('No data available'));
+                return Center(
+                  child: Text('No data available'),
+                );
               }
             },
           ),

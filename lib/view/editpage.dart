@@ -28,6 +28,7 @@ class _UpdateItemPageState extends State<UpdateItemPage> {
   Widget build(BuildContext context) {
     final tudodata = Provider.of<Updatetudo>(context);
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: const Text(
@@ -46,8 +47,13 @@ class _UpdateItemPageState extends State<UpdateItemPage> {
               key: tudodata.formKey,
               child: TextFormField(
                 controller: tudodata.titleController,
-                decoration: const InputDecoration(
-                  labelText: 'Title',
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(15)),
+                  hintText: 'Title',
                 ),
                 validator: (value) {
                   if (value?.isEmpty ?? true) {
@@ -58,11 +64,19 @@ class _UpdateItemPageState extends State<UpdateItemPage> {
                 },
               ),
             ),
+            SizedBox(height: 10,),
             TextFormField(
               controller: tudodata.descriptionController,
-              decoration: const InputDecoration(
-                labelText: 'Description',
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(15)),
+                hintText: 'Description',
+                
               ),
+              maxLines: 5,
               validator: (value) {
                 if (value?.isEmpty ?? true) {
                   return "Please enter the Description";
@@ -73,8 +87,15 @@ class _UpdateItemPageState extends State<UpdateItemPage> {
             ),
             const SizedBox(height: 20),
             Center(
-              child: MaterialButton(
-                color: Colors.black,
+              child: ElevatedButton(
+                
+               style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.black,
+                side: BorderSide(color: Colors.white),
+               shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15)
+               ) 
+               ),
                 onPressed: () {
                   if (tudodata.formKey.currentState?.validate() ?? false) {
                     tudodata.updateItem(
