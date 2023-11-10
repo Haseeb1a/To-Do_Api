@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:todoapp/controller/homecontroller.dart';
 import 'package:todoapp/view/add_todo.dart';
 import 'package:todoapp/view/editpage.dart';
 import '../model/tudomodel.dart';
 import '../services/apiconnections.dart';
+import 'package:typethis/typethis.dart';
 
 class ItemListWidget extends StatefulWidget {
   @override
@@ -46,7 +48,28 @@ class _ItemListWidgetState extends State<ItemListWidget> {
               final items = snapshot.data!.items;
 
               if (items.isEmpty) {
-                return Center(child: Text('No data available'));
+                return Center(
+                    child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      radius: 100,
+                      backgroundColor: const Color.fromARGB(255, 35, 35, 36),
+                      child: Image.asset('assets/emptyog.png'),
+                    ),
+                    // Lottie.asset('assets/data.json'),
+                    const TypeThis(
+                      showBlinkingCursor: true,
+                      string: ' Empty List',
+                      speed: 75,
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ));
               }
 
               return ListView.builder(
@@ -105,7 +128,16 @@ class _ItemListWidgetState extends State<ItemListWidget> {
                 },
               );
             } else {
-              return Center(child: Text('No data available'));
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    child: Image.asset('assets/empty.jpg'),
+                  ),
+                  // Lottie.asset('assets/Animation - 1699526185617.json'),
+                  const Center(child: Text('No data available')),
+                ],
+              );
             }
           },
         ),
