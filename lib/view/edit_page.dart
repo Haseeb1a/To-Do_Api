@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todoapp/controller/home_controller.dart';
 import 'package:todoapp/controller/update_tudo.dart';
+import 'package:todoapp/helpers/colors.dart';
 import 'package:todoapp/view/list_todo.dart';
 
 class UpdateItemPage extends StatefulWidget {
@@ -28,13 +29,21 @@ class _UpdateItemPageState extends State<UpdateItemPage> {
   Widget build(BuildContext context) {
     final tudodata = Provider.of<Updatetudo>(context);
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppCollors.darktheme,
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: const Text(
-          "EDIT ITEM",
-          style: TextStyle(fontWeight: FontWeight.bold, color: Color.fromARGB(255, 255, 230, 189)),
-        ),
+        backgroundColor: AppCollors.darktheme,
+              title: const Text.rich(TextSpan(children: <InlineSpan>[
+          TextSpan(
+            text: 'EDIT ',
+            style: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: AppCollors.primarytheme),
+          ),
+          TextSpan(
+            text: 'ITEM',
+            style: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+          )
+        ])),
         centerTitle: true,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
@@ -90,7 +99,7 @@ class _UpdateItemPageState extends State<UpdateItemPage> {
               child: ElevatedButton(
                 
                style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black,
+                backgroundColor: AppCollors.darktheme,
                 side: BorderSide(color: Colors.white),
                shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15)

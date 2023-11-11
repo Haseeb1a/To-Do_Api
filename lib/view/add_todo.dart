@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todoapp/controller/home_controller.dart';
+import 'package:todoapp/helpers/colors.dart';
 import 'package:todoapp/view/list_todo.dart';
-
 import '../controller/add_controller.dart';
 
 class AddItemPage extends StatelessWidget {
@@ -10,13 +10,22 @@ class AddItemPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final tudodata = Provider.of<AddTodo>(context);
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppCollors.darktheme,
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: const Text(
-          "ADD ITEM",
-          style: TextStyle(fontWeight: FontWeight.bold, color: Color.fromARGB(255, 255, 230, 189)),
-        ),
+        // automaticallyImplyLeading: false,
+        backgroundColor: AppCollors.darktheme,
+          title: const Text.rich(TextSpan(children: <InlineSpan>[
+          TextSpan(
+            text: 'ADD ',
+            style: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: AppCollors.primarytheme),
+          ),
+          TextSpan(
+            text: 'ITEM',
+            style: TextStyle(
+                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+          )
+        ])),
         centerTitle: true,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
@@ -45,7 +54,7 @@ class AddItemPage extends StatelessWidget {
                   return null;
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               TextFormField(
@@ -71,9 +80,9 @@ class AddItemPage extends StatelessWidget {
               Center(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
+                    backgroundColor: AppCollors.darktheme,
                     shape: RoundedRectangleBorder(
-                      side: BorderSide(color: Colors.white),
+                      side: const BorderSide(color: Colors.white),
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                   ),
@@ -95,7 +104,7 @@ class AddItemPage extends StatelessWidget {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 17,
-                      color: Color.fromARGB(255, 255, 230, 189),
+                      color: AppCollors.primarytheme,
                     ),
                   ),
                 ),

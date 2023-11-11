@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todoapp/controller/home_controller.dart';
+import 'package:todoapp/helpers/colors.dart';
 import 'package:todoapp/view/add_todo.dart';
 import 'package:todoapp/view/edit_page.dart';
 import '../model/tudo_model.dart';
@@ -23,10 +24,10 @@ class _ItemListWidgetState extends State<ItemListWidget> {
   Widget build(BuildContext context) {
     final homedatas = Provider.of<Homedata>(context);
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 230, 189),
+      backgroundColor: AppCollors.primarytheme,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor:Colors.black,
+        backgroundColor:AppCollors.darktheme,
               title: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -67,7 +68,7 @@ class _ItemListWidgetState extends State<ItemListWidget> {
                   children: [
                     CircleAvatar(
                       radius: 100,
-                      backgroundColor: Color.fromARGB(255, 255, 230, 189),
+                      backgroundColor: AppCollors.primarytheme,
                       child: Image.asset('assets/emptyog.png'),
                     ),
                     // Lottie.asset('assets/data.json'),
@@ -78,7 +79,7 @@ class _ItemListWidgetState extends State<ItemListWidget> {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
-                        color: Colors.black,
+                        color: AppCollors.darktheme,
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -91,11 +92,11 @@ class _ItemListWidgetState extends State<ItemListWidget> {
                 itemBuilder: (context, index) {
                   final item = items[index];
                   return Card(
-                    color: Colors.black,
+                    color: AppCollors.darktheme,
                     child: ListTile(
                       leading: CircleAvatar(
-                        backgroundColor:const Color.fromARGB(255, 255, 230, 189),
-                        child: Text("${index + 1}",style: TextStyle(color:Colors.black),),
+                        backgroundColor:AppCollors.primarytheme,
+                        child: Text("${index + 1}",style: TextStyle(color:AppCollors.darktheme),),
                       ),
                       title: Text(
                         item.title,
@@ -104,7 +105,7 @@ class _ItemListWidgetState extends State<ItemListWidget> {
                       ),
                       subtitle: Text(
                         item.description,
-                        style: const TextStyle(fontWeight: FontWeight.bold,color: Color.fromARGB(255, 255, 255, 255)),
+                        style: const TextStyle(fontWeight: FontWeight.bold,color: AppCollors.primarytheme),
                       ),
                       trailing: PopupMenuButton(
                         color: Colors.white,
@@ -158,7 +159,7 @@ class _ItemListWidgetState extends State<ItemListWidget> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: Colors.black,
+        backgroundColor: AppCollors.darktheme,
         onPressed: () {
           Navigator.push(
             context,
@@ -170,7 +171,7 @@ class _ItemListWidgetState extends State<ItemListWidget> {
         label: const Text(
           "ADD TODO",
           style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 22, color: Color.fromARGB(255, 255, 230, 189)),
+              fontWeight: FontWeight.bold, fontSize: 22, color: AppCollors.primarytheme),
         ),
       ),
     );
