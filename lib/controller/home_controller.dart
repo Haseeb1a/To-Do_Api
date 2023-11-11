@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:todoapp/view/list.todo.dart';
 
-import '../model/tudomodel.dart';
-import '../services/apiconnections.dart';
+import '../model/tudo_model.dart';
+import '../services/api_connections.dart';
 
 class Homedata extends ChangeNotifier {
   Future<Tudomodel>? data;

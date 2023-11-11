@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todoapp/controller/homecontroller.dart';
-import 'package:todoapp/controller/updatetudo.dart';
-import 'package:todoapp/view/list.todo.dart';
+import 'package:todoapp/controller/home_controller.dart';
+import 'package:todoapp/controller/update_tudo.dart';
+import 'package:todoapp/view/list_todo.dart';
 
 class UpdateItemPage extends StatefulWidget {
   final String itemId;
@@ -33,7 +33,7 @@ class _UpdateItemPageState extends State<UpdateItemPage> {
         backgroundColor: Colors.black,
         title: const Text(
           "EDIT ITEM",
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
+          style: TextStyle(fontWeight: FontWeight.bold, color: Color.fromARGB(255, 255, 230, 189)),
         ),
         centerTitle: true,
         iconTheme: const IconThemeData(color: Colors.white),
@@ -115,7 +115,7 @@ class _UpdateItemPageState extends State<UpdateItemPage> {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 17,
-                    color: Colors.blue,
+                    color: Color.fromARGB(255, 255, 230, 189),
                   ),
                 ),
               ),

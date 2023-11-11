@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:todoapp/controller/homecontroller.dart';
+import 'package:todoapp/controller/home_controller.dart';
 
-import '../services/apiconnections.dart';
+import '../services/api_connections.dart';
 
 class Updatetudo extends ChangeNotifier {
   final TextEditingController titleController = TextEditingController();

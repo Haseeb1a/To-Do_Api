@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:todoapp/model/tudomodel.dart';
+import 'package:todoapp/model/tudo_model.dart';
 import 'package:todoapp/view/widget/snakbar.dart';
 
 class ApiService {
