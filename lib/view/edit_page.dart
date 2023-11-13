@@ -10,7 +10,7 @@ class UpdateItemPage extends StatefulWidget {
   final String title;
   final String description; // Pass the ID of the item to be updated
   UpdateItemPage(
-      {required this.itemId, required this.title, required this.description});
+      {required this.itemId, required this.title, required this.description,});
 
   @override
   State<UpdateItemPage> createState() => _UpdateItemPageState();
@@ -32,11 +32,13 @@ class _UpdateItemPageState extends State<UpdateItemPage> {
       backgroundColor: AppCollors.darktheme,
       appBar: AppBar(
         backgroundColor: AppCollors.darktheme,
-              title: const Text.rich(TextSpan(children: <InlineSpan>[
+        title: const Text.rich(TextSpan(children: <InlineSpan>[
           TextSpan(
             text: 'EDIT ',
             style: TextStyle(
-                fontSize: 20, fontWeight: FontWeight.bold, color: AppCollors.primarytheme),
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: AppCollors.primarytheme),
           ),
           TextSpan(
             text: 'ITEM',
@@ -73,7 +75,9 @@ class _UpdateItemPageState extends State<UpdateItemPage> {
                 },
               ),
             ),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             TextFormField(
               controller: tudodata.descriptionController,
               decoration: InputDecoration(
@@ -83,7 +87,6 @@ class _UpdateItemPageState extends State<UpdateItemPage> {
                     borderSide: BorderSide.none,
                     borderRadius: BorderRadius.circular(15)),
                 hintText: 'Description',
-                
               ),
               maxLines: 5,
               validator: (value) {
@@ -97,14 +100,11 @@ class _UpdateItemPageState extends State<UpdateItemPage> {
             const SizedBox(height: 20),
             Center(
               child: ElevatedButton(
-                
-               style: ElevatedButton.styleFrom(
-                backgroundColor: AppCollors.darktheme,
-                side: BorderSide(color: Colors.white),
-               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15)
-               ) 
-               ),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: AppCollors.darktheme,
+                    side: BorderSide(color: Colors.white),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15))),
                 onPressed: () {
                   if (tudodata.formKey.currentState?.validate() ?? false) {
                     tudodata.updateItem(

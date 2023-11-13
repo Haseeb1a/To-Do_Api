@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todoapp/view/list_todo.dart';
 
 import '../model/tudo_model.dart';
 import '../services/api_connections.dart';
@@ -18,12 +19,10 @@ class Homedata extends ChangeNotifier {
     notifyListeners();
   }
 
-  deleteitems(context, itemid) async {
+  deleteitems(BuildContext context, itemid){
     ApiService().deleteItem(context, itemid);
-  
     refreshData();
-    refreshData();
-      data;
+    // data;
     notifyListeners();
   }
 }

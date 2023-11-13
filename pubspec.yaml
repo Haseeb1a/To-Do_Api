@@ -34,6 +34,9 @@ dependencies:
   http: ^1.1.0 
   lottie: ^2.7.0
   typethis: ^0.0.1
+  connectivity_plus: ^5.0.1 
+  internet_connection_checker: ^1.0.0+1
+  flutter_slidable: null
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2

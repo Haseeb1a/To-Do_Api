@@ -9,7 +9,7 @@ class Updatetudo extends ChangeNotifier {
   final TextEditingController descriptionController = TextEditingController();
 
   void updateItem(
-    context,
+    BuildContext context,
     String itemIds,
   ) async {
     final String itemId = itemIds;
@@ -19,7 +19,7 @@ class Updatetudo extends ChangeNotifier {
     if (itemId.isNotEmpty && title.isNotEmpty && description.isNotEmpty) {
       // Call the updateItem method to update the item on the server
       await ApiService().updateItem(context, itemId, title, description);
-      Homedata().refreshData();
+      // Homedata().refreshData();
       // Handle success and error cases, e.g., show a confirmation dialog.
     } else {
       return;

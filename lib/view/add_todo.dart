@@ -86,13 +86,13 @@ class AddItemPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                   ),
-                  onPressed: () {
+                  onPressed: ()async {
                     if (tudodata.formKey.currentState?.validate() ?? false) {
                       tudodata.addItem(context);
                       Homedata().refreshData();
                       tudodata.titleController.clear();
                       tudodata.descriptionController.clear();
-                      Navigator.pushReplacement(
+                        Navigator.pushReplacement (
                           context,
                           MaterialPageRoute(
                             builder: (context) => ItemListWidget(),

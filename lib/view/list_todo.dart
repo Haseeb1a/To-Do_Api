@@ -6,6 +6,8 @@ import 'package:todoapp/view/add_todo.dart';
 import 'package:todoapp/view/edit_page.dart';
 import '../model/tudo_model.dart';
 import 'package:typethis/typethis.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+
 
 class ItemListWidget extends StatefulWidget {
   @override
@@ -27,8 +29,8 @@ class _ItemListWidgetState extends State<ItemListWidget> {
       backgroundColor: AppCollors.primarytheme,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor:AppCollors.darktheme,
-              title: const Row(
+        backgroundColor: Colors.black,
+        title: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
@@ -60,7 +62,7 @@ class _ItemListWidgetState extends State<ItemListWidget> {
               return Center(child: Text('Error: ${snapshot.error}'));
             } else if (snapshot.hasData) {
               final items = snapshot.data!.items;
-    
+
               if (items.isEmpty) {
                 return Center(
                     child: Column(
@@ -71,7 +73,6 @@ class _ItemListWidgetState extends State<ItemListWidget> {
                       backgroundColor: AppCollors.primarytheme,
                       child: Image.asset('assets/emptyog.png'),
                     ),
-                    // Lottie.asset('assets/data.json'),
                     const TypeThis(
                       showBlinkingCursor: true,
                       string: ' Empty List ',
@@ -79,65 +80,71 @@ class _ItemListWidgetState extends State<ItemListWidget> {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
-                        color: AppCollors.darktheme,
+                        color: Colors.brown,
                       ),
                       textAlign: TextAlign.center,
                     ),
                   ],
                 ));
               }
-    
+
               return ListView.builder(
                 itemCount: items.length,
                 itemBuilder: (context, index) {
                   final item = items[index];
-                  return Card(
-                    color: AppCollors.darktheme,
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        backgroundColor:AppCollors.primarytheme,
-                        child: Text("${index + 1}",style: TextStyle(color:AppCollors.darktheme),),
-                      ),
-                      title: Text(
-                        item.title,
-                        style: const TextStyle(
-                            fontSize: 17, fontWeight: FontWeight.bold,color:const Color.fromARGB(255, 255, 230, 189)),
-                      ),
-                      subtitle: Text(
-                        item.description,
-                        style: const TextStyle(fontWeight: FontWeight.bold,color: AppCollors.primarytheme),
-                      ),
-                      trailing: PopupMenuButton(
-                        color: Colors.white,
-                        onSelected: (value) {
-                          if (value == 'edit') {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => UpdateItemPage(
-                                  itemId: item.id,
-                                  description: item.description,
-                                  title: item.title,
+                  return Slidable(
+                       endActionPane:
+                            ActionPane(motion: const DrawerMotion(), children: [
+                          SlidableAction (
+                            onPressed: (context) {
+                        homedatas.deleteitems(context, item.id);
+                        homedatas.refreshData();
+                            },
+                            icon: Icons.delete_forever_rounded,
+                            backgroundColor: Colors.red,
+                            foregroundColor: Colors.white,
+                          ),
+                          SlidableAction(
+                            onPressed: (context) {
+                          Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => UpdateItemPage(
+                                    itemId: item.id,
+                                    description: item.description,
+                                    title: item.title,
+                                  ),
                                 ),
-                              ),
-                            );
-                          } else if (value == 'delete') {
-                            homedatas.deleteitems(context, item.id);
-                            // Refresh the list after deletion
-                          }
-                        },
-                        itemBuilder: (context) {
-                          return [
-                            const PopupMenuItem(
-                              child: Text("Edit"),
-                              value: 'edit',
-                            ),
-                            const PopupMenuItem(
-                              child: Text('Delete'),
-                              value: 'delete',
-                            )
-                          ];
-                        },
+                              );
+                            },
+                            icon: Icons.edit,
+                            backgroundColor: Colors.brown,
+                            foregroundColor: const Color.fromARGB(255, 255, 255, 255),
+                          ),
+                        ]),
+                    child: Card(
+                      color: AppCollors.darktheme,
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          backgroundColor: Colors.brown,
+                          child: Text(
+                            "${index + 1}",
+                            style: TextStyle(color: const Color.fromARGB(223, 255, 255, 255)),
+                          ),
+                        ),
+                        title: Text(
+                          item.title,
+                          style: const TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                              color: const Color.fromARGB(255, 255, 230, 189)),
+                        ),
+                        subtitle: Text(
+                          item.description,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.white),
+                        ),
+                        // --------------------------------------------------------------------------------
                       ),
                     ),
                   );
@@ -159,6 +166,7 @@ class _ItemListWidgetState extends State<ItemListWidget> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
+      
         backgroundColor: AppCollors.darktheme,
         onPressed: () {
           Navigator.push(
@@ -171,7 +179,9 @@ class _ItemListWidgetState extends State<ItemListWidget> {
         label: const Text(
           "ADD TODO",
           style: TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 22, color: AppCollors.primarytheme),
+              fontWeight: FontWeight.bold,
+              fontSize: 22,
+              color: AppCollors.primarytheme),
         ),
       ),
     );

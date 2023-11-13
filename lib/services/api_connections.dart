@@ -1,12 +1,14 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:todoapp/model/tudo_model.dart';
-import 'package:todoapp/view/widget/snakbar.dart';
 
 class ApiService {
   // get-----------------------
-  static Future<Tudomodel> fetchDataFromAPI() async {
-    const url = 'https://api.nstack.in/v1/todos?page=1&limit=10';
+static Future<Tudomodel> fetchDataFromAPI() async {
+  const url = 'https://api.nstack.in/v1/todos?page=1&limit=10';
+  
+  try {
     final response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
@@ -14,10 +16,14 @@ class ApiService {
     } else {
       throw Exception('Failed to load data');
     }
+  } catch (e) {
+    throw Exception('Failed to fetch data: $e');
   }
+}
 
 // Post-------------------------------------------
-  Future<void> submitdata(context, String title, String description) async {
+Future<void> submitdata(context, String title, String description) async {
+  try {
     final body = {
       "title": title,
       "description": description,
@@ -32,44 +38,47 @@ class ApiService {
     );
     print(responce.statusCode);
     print(responce.body);
+    
     if (responce.statusCode == 201) {
-      print("ss");
-      print("Creaation Success");
-      showSuccess(context, " Creaation Success");
+      print("Creation Success");
       fetchDataFromAPI();
     } else {
-      print("Creaation Error");
+      print("Creation Error");
       print(responce.body);
-       showError(context, "Creaation Error");
     }
+  } catch (e) {
+    print("An error occurred: $e");
+    // Handle the error as needed, for example, show an error message to the user.
   }
+}
 
   //delete ---------------------------------------------------
-  Future<void> deleteItem(ctx, String itemId) async {
-    final url = Uri.parse(
-        'https://api.nstack.in/v1/todos/$itemId'); 
+Future<void> deleteItem(BuildContext ctx, String itemId) async {
+  try {
+    final url = Uri.parse('https://api.nstack.in/v1/todos/$itemId');
 
     final response = await http.delete(
       url,
       headers: {
-        'Content-Type':
-            'application/json',
+        'Content-Type': 'application/json',
       },
     );
 
     if (response.statusCode == 200) {
       print('Item deleted successfully');
-      showError(ctx, 'Item deleted successfully');
-      // fetchDataFromAPI();
     } else {
-     
       print('Error deleting item: ${response.statusCode} - ${response.body}');
     }
+  } catch (e) {
+    print('An error occurred: $e');
+    // Handle the error as needed, for example, show an error message to the user.
   }
+}
 
 //  put-------------------------
-  Future<void> updateItem(
-      context, String itemId, String title, String description) async {
+Future<void> updateItem(
+    context, String itemId, String title, String description) async {
+  try {
     final url = Uri.parse('https://api.nstack.in/v1/todos/$itemId');
 
     final Map<String, String> data = {
@@ -86,14 +95,13 @@ class ApiService {
     );
 
     if (response.statusCode == 200) {
-     
       print('Item updated successfully');
-
-      showSuccess(context, 'Item updated successfully');
     } else {
-
       print('Error updating item: ${response.statusCode} - ${response.body}');
-      showError(context, "Error updating item");
     }
+  } catch (e) {
+    print('An error occurred: $e');
+    // Handle the error as needed, for example, show an error message to the user.
   }
+}
 }
